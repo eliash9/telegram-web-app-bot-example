@@ -1,1 +1,510 @@
-te
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="MobileOptimized" content="176" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title></title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <style>
+        body {
+            --bg-color: var(--tg-theme-bg-color, #fff);
+            font-family: sans-serif;
+            background-color: var(--bg-color);
+            color: var(--tg-theme-text-color, #222);
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
+            color-scheme: var(--tg-color-scheme);
+        }
+
+        body.gray {
+            background-color: var(--tg-theme-secondary-bg-color, #efefef);
+        }
+
+        a {
+            color: var(--tg-theme-link-color, #2678b6);
+        }
+
+        .btn {
+            font-size: 14px;
+            padding: 10px 17px;
+        }
+
+        .mt-2 {
+            margin-top: 10px;
+        }
+        .mb-2 {
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            background-color: var(--tg-theme-button-color, #50a8eb);
+            color: var(--tg-theme-button-text-color, #fff);
+            border: none;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            font-size: 14px;
+            margin: 15px 0;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: var(--tg-theme-button-color, #50a8eb);
+            color: var(--tg-theme-button-text-color, #ffffff);
+            cursor: pointer;
+        }
+
+        .main-container {
+            padding: 15px;
+        }
+
+        .list-header {
+            text-transform: uppercase;
+            font-size: .92em;
+            color: var(--tg-theme-hint-color, #ccc);
+            margin: 0 0 10px;
+        }
+
+        a.list-group-item,
+        button.list-group-item {
+            color: var(--tg-theme-text-color, #222);
+        }
+
+        .main-container p {
+            margin: 0 0 10px;
+        }
+
+        .main-container pre,
+        .main-container>.btn {
+            margin: 0 0 7px;
+        }
+
+        .main-container pre+.hint,
+        .main-container>.btn+.hint {
+            text-align: center;
+            margin: 0 0 15px;
+        }
+
+        button[disabled] {
+            opacity: 0.6;
+            cursor: auto;
+            pointer-events: none;
+        }
+
+        button.close_btn {
+            /*position: fixed;*/
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 0;
+            margin: 0;
+            padding: 16px 20px;
+            text-transform: uppercase;
+        }
+
+        input[type="text"],
+        .input[contenteditable] {
+            display: block;
+            box-sizing: border-box;
+            font-size: 14px;
+            width: 100%;
+            padding: 12px 20px;
+            margin: 15px 0;
+            border: 1px solid var(--tg-theme-link-color, #000);
+            background-color: var(--tg-theme-bg-color, #ffffff);
+            border-radius: 4px;
+            color: var(--tg-theme-text-color, #222222);
+            text-align: start;
+        }
+
+        input[type="text"]::-webkit-input-placeholder {
+            color: var(--tg-theme-hint-color, #ccc);
+        }
+
+        input[type="text"]::-moz-placeholder {
+            color: var(--tg-theme-hint-color, #ccc);
+        }
+
+        input[type="text"]:-ms-input-placeholder {
+            color: var(--tg-theme-hint-color, #ccc);
+        }
+
+        .input[data-placeholder] {
+            position: relative;
+        }
+
+        .input[data-placeholder]:empty:before {
+            position: absolute;
+            left: 0;
+            right: 0;
+            content: attr(data-placeholder);
+            color: var(--tg-theme-hint-color, #ccc);
+            padding: 0 20px;
+            font-weight: normal;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        section {
+            padding: 15px;
+            text-align: center;
+            background-color: var(--bg-color, #ffffff);
+        }
+
+        section#top_sect {
+            background-color: var(--tg-theme-bg-color, #ffffff);
+        }
+
+        section#top_sect.second {
+            background-color: var(--tg-theme-secondary-bg-color, #efefef);
+        }
+
+        section+section {
+            padding: 0 15px 65px;
+        }
+
+        .title {
+            font-size: large;
+            padding: 10px 17px;
+        }
+        .subtitle {
+            font-size: 15px;
+            padding: 10px 17px;
+        }
+
+        p {
+            margin: 40px 0 15px;
+        }
+
+        ul {
+            text-align: left;
+        }
+
+        li {
+            color: var(--tg-theme-hint-color, #a8a8a8);
+        }
+
+        textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 7px;
+            font-size: 23px;
+        }
+
+        pre {
+            background: rgba(0, 0, 0, .07);
+            color: var(--tg-theme-text-color, #222);
+            font-size: 12px;
+            border: none;
+            border-radius: 4px;
+            padding: 8px;
+            margin: 7px 0;
+            word-break: break-word;
+            white-space: pre-wrap;
+            text-align: left;
+        }
+
+        .dark pre {
+            background: rgba(255, 255, 255, .15);
+        }
+
+        .chat_img {
+            width: 30px;
+            border-radius: 15px;
+            margin-right: 10px;
+        }
+
+        .hint {
+            font-size: .8em;
+            color: var(--tg-theme-hint-color, #a8a8a8);
+        }
+
+        .ok {
+            color: green;
+        }
+
+        .err {
+            color: red;
+        }
+
+        .status_need {
+            display: none;
+        }
+
+        #fixed_wrap {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            transform: translateY(100vh);
+        }
+
+        .viewport-container {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: var(--tg-viewport-stable-height, 100vh);
+            transition: height .2s ease;
+        }
+
+        .viewport-container .main-container {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .viewport-container .main-container button {
+            width: auto;
+        }
+
+        small {
+            font-size: 12px;
+        }
+
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #3333339b;
+            transition: opacity 0.75s, visbility 0.75s;
+        }
+
+        .loader--hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader::after {
+            content: "";
+            width: 55px;
+            height: 55px;
+            border: 15px solid #dddddd;
+            border-top-color: #009578;
+            border-radius: 50%;
+            animation: loading 0.75s ease infinite;
+        }
+
+        .input_container {
+            border: 1px solid #e5e5e5;
+        }
+
+        input[type=file]::file-selector-button {
+            background-color: #fff;
+            color: #000;
+            border: 0px;
+            border-right: 1px solid #e5e5e5;
+            padding: 10px 15px;
+            margin-right: 20px;
+            transition: .5s;
+        }
+
+        input[type=file]::file-selector-button:hover {
+            background-color: #eee;
+            border: 0px;
+            border-right: 1px solid #e5e5e5;
+        }
+
+        @keyframes loading {
+            from {
+                transform: rotate(0turn);
+            }
+
+            to {
+                transform: rotate(1turn);
+            }
+        }
+    </style>
+</head>
+
+<body class="" style="visibility: hidden;">
+    <div class="loader loader--hidden"></div>
+    <section id="top_sect" class="second">
+        <div class="title">Hola <span id="name_user"></span>, si necesitas crear un ticket solo debes indicar la
+            solicitud y dar clic
+            al botón de crear ticket</div>
+        <div class="subtitle">Nota: Si necesitas envíar uno o varios archivos (.doc .xls .pdf o imágenes), dale clic al botón elegir archivos</div>
+        <div class="mt-2 mb-2" style="text-align:left">
+            <input type="checkbox" id="priority" name="priority">
+            <label for="priority">URGENTE</label>
+        </div>
+        <textarea id="text_field" type="text" placeholder="Ingresa aquí la descripción del requerimiento..." rows="16"></textarea>
+        <div class="input_container mt-2 mb-2" style="text-align:left">
+            <input id="file-upload" type="file" name="files" multiple />
+        </div>
+        
+        <button id="data_btn" onclick="DemoApp.sendMessage('', true);">Crear ticket</button>
+    </section>
+    <section class="mt-2">
+        <div class="hint">
+            Sistema de tickets MESSOR
+        </div>
+        <div class="hint">
+            Version: 7.0</span>
+        </div>
+        <!-- Linea para ver los datos que recibo del telegram solo para desarrollo -->
+        <pre><code id="webview_data"></code></pre>
+         <!-- /fin -->
+    </section>
+
+    <script type="application/javascript">
+
+        /*
+         * This is a demo code for Telegram WebApp for Bots
+         * It contains basic examples of how to use the API
+         * Note: all requests to backend are disabled in this demo, you should use your own backend
+         */
+
+        const DemoApp = {
+            initData: Telegram.WebApp.initData || '',
+            initDataUnsafe: Telegram.WebApp.initDataUnsafe || {},
+            MainButton: Telegram.WebApp.MainButton,
+
+            init(options) {
+                Telegram.WebApp.expand();
+                document.body.style.visibility = '';
+                Telegram.WebApp.ready();
+            },
+            close() {
+                Telegram.WebApp.close();
+            },
+
+            // Actions
+            sendMessage(msg_id, with_webview) {
+
+                if (document.getElementById('text_field').value == '' || document.getElementById('text_field').value == null){
+                    DemoApp.showAlert('Para poder crear un ticket, es necesario llenar el campo de descripción. Gracias.');
+                    return;
+                }
+
+                if (!DemoApp.initDataUnsafe.query_id) {
+                    DemoApp.showAlert('WebViewQueryId not defined');
+                    return;
+                }
+
+                document.querySelectorAll('button').forEach((btn) => btn.disabled = true);
+
+                const loader = document.querySelector(".loader");
+                loader.classList.remove("loader--hidden");
+
+                DemoApp.apiRequest({
+
+                }, function (result) {
+                    // console.log(result)
+
+                    loader.classList.add("loader--hidden");
+                    document.querySelectorAll('button').forEach((btn) => btn.disabled = false);
+                    if (result) {
+                        // Cerramos el formulario
+                        document.getElementById('text_field').value = '';
+                        DemoApp.showPopup(DemoApp.initDataUnsafe.user.first_name + ', tu número de ticket generado en automático es el: ' + result.ticket + ' con el que puedes hacer seguimiento de tu requerimiento, Gracias.' );
+                    } else {
+                        DemoApp.showAlert('Error grave, no ha sido posible comunicarse con el servidor, reenvia el requerimiento');
+                    }
+                });
+            },
+
+            // Alerts
+            showAlert(message) {
+                Telegram.WebApp.showAlert(message);
+            },
+            showPopup(text) {
+                Telegram.WebApp.showPopup({
+                    title: 'Nuevo Ticket',
+                    message: text,
+                    buttons: [
+                        {id: 'ready', type: 'destructive', text: 'Cerrar'}
+                    ]
+                }, function(buttonId) {
+                    if (buttonId === 'ready') {
+                        DemoApp.close();
+                    }
+                });
+            },
+
+            // Other
+            apiRequest(data, onCallback) {
+                
+                // DISABLE BACKEND FOR FRONTEND DEMO
+                // YOU CAN USE YOUR OWN REQUESTS TO YOUR OWN BACKEND
+                // CHANGE THIS CODE TO YOUR OWN
+                // return onCallback && onCallback({ error: 'This function (' + method + ') should send requests to your backend. Please, change this code to your own.' });
+
+                const body = new FormData()
+                body.append('telegramID', DemoApp.initDataUnsafe.user.id);
+                body.append('poc', DemoApp.initDataUnsafe.user.first_name);
+                body.append('description', document.getElementById('text_field').value);
+                body.append('priority', document.getElementById('priority').checked);
+
+                const files = document.getElementById('file-upload').files;
+                for (var i = 0; i < files.length; i++) {
+                    let file = files[i]
+                    body.append(`files[${i}]`, file);
+                }
+                
+                fetch('https://messor-app-susp3.ondigitalocean.app/api/crear-ticket', {
+                    method: 'POST',
+                    body: body,
+                    // If you add this, upload won't work
+                    // headers: {
+                    //   'Content-Type': 'multipart/form-data',
+                    // }
+                    
+                }).then(function (response) {
+                    return response.json();
+                }).then(function (result) {
+                    // console.log(result)
+                    onCallback && onCallback(result);
+                }).catch(function (error) {
+                    // console.log(error)
+                    onCallback && onCallback({ error: 'Server error' });
+                });
+            }
+        }
+
+    </script>
+
+    <script type="application/javascript">
+        /*
+         * This part of code is used to initialize the demo app and set up the event handlers we need.
+         */
+
+        document.getElementById('text_field').focus();
+
+        // document.getElementById('webview_data').innerHTML = JSON.stringify(DemoApp.initDataUnsafe, null, 2);
+
+        if (DemoApp.initDataUnsafe.user) {
+            document.getElementById('name_user').innerHTML = DemoApp.initDataUnsafe.user.first_name;
+        }
+
+        DemoApp.init();
+
+    </script>
+
+</body>
+
+</html>
